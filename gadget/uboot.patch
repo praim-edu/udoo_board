@@ -1,0 +1,38 @@
+diff --git a/configs/udoo_defconfig b/configs/udoo_defconfig
+index 3bf5505..433d0f7 100644
+--- a/configs/udoo_defconfig
++++ b/configs/udoo_defconfig
+@@ -31,3 +31,4 @@ CONFIG_CMD_FS_GENERIC=y
+ CONFIG_DM=y
+ CONFIG_DM_THERMAL=y
+ CONFIG_OF_LIBFDT=y
++CONFIG_ENV_IS_IN_FAT=y
+diff --git a/include/configs/udoo.h b/include/configs/udoo.h
+index d84aa16..9f04403 100644
+--- a/include/configs/udoo.h
++++ b/include/configs/udoo.h
+@@ -167,10 +167,23 @@
+ 	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
+ 
+ /* Environment organization */
+-#define CONFIG_ENV_SIZE			(8 * 1024)
+ 
+ #define CONFIG_ENV_IS_IN_MMC
+ #define CONFIG_ENV_OFFSET		(6 * 64 * 1024)
+ #define CONFIG_SYS_MMC_ENV_DEV		0
+ 
++
++#define CONFIG_ENV_SIZE (128 * 1024)
++
++#undef CONFIG_ENV_IS_IN_MMC
++#define CONFIG_ENV_IS_IN_FAT
++#define FAT_ENV_INTERFACE "mmc"
++#define FAT_ENV_DEVICE_AND_PART "0:1"
++#define FAT_ENV_FILE "uboot.env"
++
++#define CONFIG_SYS_REDUNDAND_ENVIRONMENT
++#define CONFIG_FAT_WRITE
++#define CONFIG_SUPPORT_RAW_INITRD
++
++
+ #endif			       /* __CONFIG_H * */

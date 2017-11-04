@@ -1,0 +1,30 @@
+name: udoo-quad-kernel
+version: 4.4
+summary: An udoo kernel built from source
+description: Udoo kernel
+type: kernel
+architectures: [ armhf ]
+
+parts:
+    kernel:
+        plugin: kernel
+        #source: https://github.com/patrykk/linux-udoo.git
+        source: /home/praim/src/linux-udoo
+        source-branch: 4.4-5.0.11.p7.3
+        source-type: git
+        kdefconfig: [udoo_quad_defconfig]
+        kconfigs:
+            - CONFIG_SQUASHFS=y
+            - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
+            - CONFIG_DEBUG_INFO=n
+            - CONFIG_LOCALVERSION="-praim"
+
+        #make-parameters: -j8       
+ 
+        #kernel-initrd-modules:
+        #    - squashfs
+        kernel-image-target: zImage
+        kernel-device-trees:
+            - imx6q-udoo
+
+        build-packages: [bc, kmod, cpio]

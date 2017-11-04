@@ -1,0 +1,25 @@
+device-tree: imx6q-udoo.dtb
+volumes:
+      udoo-quad:
+        bootloader: u-boot
+        schema: mbr
+        structure:
+            - name: SPL
+              type: bare
+              size: 44032
+              offset: 1024
+              content:
+                - image: SPL
+            
+            - name: u-boot
+              type: bare
+              size: 246784
+              offset: 70656
+              content:
+                - image: u-boot.img
+            
+            - name: system-boot
+              type: 0C
+              filesystem: vfat
+              filesystem-label: system-boot
+              size: 128M

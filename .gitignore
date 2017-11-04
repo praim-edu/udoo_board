@@ -1,0 +1,11 @@
+*.snap
+build_img/
+gadget/parts/
+gadget/prime/
+gadget/snap/
+gadget/stage/
+kernel/parts/
+kernel/prime/
+kernel/snap/
+kernel/stage/
+

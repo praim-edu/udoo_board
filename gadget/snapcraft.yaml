@@ -1,0 +1,35 @@
+name: udoo-quad-gadget
+version: 16-0.1
+summary: Udoo Quad
+description: |
+ Bootloader files and partitoning data to create a
+ bootable Ubuntu Core image for the Udoo Quad.
+type: gadget
+architectures:
+  - armhf
+confinement: strict
+grade: stable
+
+parts:
+  uboot:
+    plugin: make
+    source: /home/praim/src/u-boot
+    source-branch: v2017.05
+    source-type: git
+    artifacts: [SPL, u-boot.img]
+    prepare: |
+      pwd
+      git apply ../../../uboot.patch
+      make udoo_defconfig
+    build: |
+      CROSS_COMPILE=arm-linux-gnueabi- make -j8
+    install: |
+      cp SPL u-boot.img $SNAPCRAFT_PART_INSTALL/
+      tools/mkenvimage -r -s 131072 -o $SNAPCRAFT_PART_INSTALL/uboot.env ../../../uboot.env.in
+      cd $SNAPCRAFT_PART_INSTALL/; ln -s uboot.env uboot.conf
+    build-packages:
+      - libpython2.7-dev
+      - build-essential
+      - bc
+      - gcc-arm-linux-gnueabi
+

@@ -1,0 +1,11 @@
+{
+  "type": "model",
+  "authority-id": "Wg5wHllzHPvjzwmCq6u6d34KYXjcS0mw",
+  "brand-id": "Wg5wHllzHPvjzwmCq6u6d34KYXjcS0mw",
+  "series": "16",
+  "model": "udoo-quad",
+  "architecture": "armhf",
+  "gadget": "udoo-quad-gadget",
+  "kernel": "udoo-quad-kernel",
+  "timestamp": "2017-10-24T15:56:36+00:00"
+}
