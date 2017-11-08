@@ -18,6 +18,7 @@ parts:
             - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
             - CONFIG_DEBUG_INFO=n
             - CONFIG_LOCALVERSION="-praim"
+            - CONFIG_SQUASHFS_XZ=y
 
         #make-parameters: -j8       
  
