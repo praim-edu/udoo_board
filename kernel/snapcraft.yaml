@@ -28,4 +28,11 @@ parts:
         kernel-device-trees:
             - imx6q-udoo
 
-        build-packages: [bc, kmod, cpio]
+        build-packages:
+            - bc
+            - kmod
+            - cpio
+            - libssl-dev
+            - build-essential
+            - bc
+            - gcc-arm-linux-gnueabi
