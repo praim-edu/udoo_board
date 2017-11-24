@@ -7,12 +7,16 @@ architectures: [ armhf ]
 
 parts:
     kernel:
+        
         plugin: kernel
+        
         #source: https://github.com/patrykk/linux-udoo.git
         source: /home/praim/src/linux-udoo
         source-branch: 4.4-5.0.11.p7.3
         source-type: git
+        
         kdefconfig: [udoo_quad_defconfig]
+        kconfigfile: config_udoo_4.4
         kconfigs:
             - CONFIG_SQUASHFS=y
             - CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
@@ -20,11 +24,11 @@ parts:
             - CONFIG_LOCALVERSION="-praim"
             - CONFIG_SQUASHFS_XZ=y
 
-        #make-parameters: -j8       
- 
         #kernel-initrd-modules:
         #    - squashfs
+        
         kernel-image-target: zImage
+        
         kernel-device-trees:
             - imx6q-udoo
 
@@ -34,5 +38,4 @@ parts:
             - cpio
             - libssl-dev
             - build-essential
-            - bc
             - gcc-arm-linux-gnueabi
