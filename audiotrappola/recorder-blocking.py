@@ -23,10 +23,10 @@ def sendaudio(source, client, starttime):
     while mtype != 2:
         l, data = source.read()
         if l:
-            msg = AudioMessage(mtype)
-            msg.audio = data
             if mtype == 1 and time.time() - starttime > 5:
                 mtype = 2
+            msg = AudioMessage(mtype)
+            msg.audio = data
 
             client.publish('/signal',pickle.dumps(msg, 2))
             if mtype == 0:
