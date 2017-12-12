@@ -18,6 +18,7 @@ def usage():
 class AudioMessage:
     def __init__(self, type):
         self.msg_type = type
+        self.level = 0.0
         self.audio = ""
 
 def getlevel(data):
@@ -40,9 +41,13 @@ def sendaudio(source, level, client, data):
     mtype = 0
     starttime = time.time()
     while True:
-        if mtype == 1 and time.time() - starttime > 2:
+        if mtype == 1 and time.time() - starttime > 4:
             mtype = 2
+        currlev = getlevel(data)
+        if currlev > level:
+            starttime = time.time()
         msg = AudioMessage(mtype)
+        msg.level = currlev
         msg.audio = data
         client.publish('/signal',pickle.dumps(msg, 2))
         if mtype == 2:
@@ -52,8 +57,6 @@ def sendaudio(source, level, client, data):
             mtype = 1
 
         l, data = source.read()
-        if l and getlevel(data) > level:
-            starttime = time.time()
 
 if __name__ == '__main__':
 
