@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -64,7 +66,7 @@
         $('#startAt').html(Sugar.Date.format(start, '%Y-%m-%d %T'));
         $('#endAt').html(Sugar.Date.format(end, '%Y-%m-%d %T'));
     
-        var audio = new Audio('/static/server/' + item.file);
+        var audio = new Audio('{% static "server/" %}' + item.file);
         audio.play();
     }
     
