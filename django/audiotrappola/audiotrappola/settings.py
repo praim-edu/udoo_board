@@ -25,7 +25,7 @@ SECRET_KEY = 'n&@^(jfwpu2r3@=4z0fam&ll1e8$(y@k&#6m0=$)p%vue!t%(b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
