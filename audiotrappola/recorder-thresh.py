@@ -25,7 +25,7 @@ def getlevel(data):
     y = np.fromstring(data, dtype=np.int16).astype(np.int32)
     m = np.mean(y**2)
     rms = np.sqrt(m)
-    return 20 * np.log10(rms/(2**15))
+    return 20 * float(np.log10(rms/(2**15)))
 
 def waitaudio(source, level):
     while True:
