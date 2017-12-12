@@ -6,14 +6,19 @@
 #BROKER="10.2.2.200"
 
 BROKER="$1"
+THRESHOLD="$2"
 
-python audiotrappola/recorder-thresh.py -h "$BROKER" -d plughw:CARD=Beecaster,DEV=0 -l -45 &
-PID_2="$!"
 
 pushd django/audiotrappola/
 python receiver.py "$BROKER" &
 PID_3="$!"
 popd
+
+sleep 1
+
+python audiotrappola/recorder-thresh.py -h "$BROKER" -d plughw:CARD=Beecaster,DEV=0 -l "$THRESHOLD" &
+PID_2="$!"
+
 
 pushd django/audiotrappola
 python manage.py runserver 0.0.0.0:8000 &
