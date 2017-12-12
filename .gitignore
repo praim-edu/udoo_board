@@ -8,4 +8,8 @@ kernel/parts/
 kernel/prime/
 kernel/snap/
 kernel/stage/
+
 *.pyc
+*/db.sqlite3
+*.swp
+*.wav

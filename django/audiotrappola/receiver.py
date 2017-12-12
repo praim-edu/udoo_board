@@ -15,6 +15,7 @@ class AudioMessage:
     def __init__(self, type):
         self.msg_type = type
         self.audio = ""
+        self.level = 0.0
 
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -60,7 +61,7 @@ def on_message(client, userdata, msg):
         a.starts_at = starts
         a.ends_at = timezone.now()
         a.file_name = nomeFile
-        a.max_volume = 10
+        a.max_volume = m.level
         a.min_volume = 10
         a.save()
 
@@ -68,7 +69,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("localhost", 1883, 60)
+client.connect("10.2.2.200", 1883, 60)
 client.subscribe("/signal")
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
