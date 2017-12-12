@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Timeline</title>
+
+  <style type="text/css">
+    body, html {
+      font-family: sans-serif;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sugar/2.0.4/sugar.min.js"></script>
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="visualization"></div>
+<div id="fileData">
+    <dl>
+        <dt>Starts at</dt>
+        <dd id="startAt"></dd>
+        <dt>Ends at</dt>
+        <dd id="endAt"></dd>
+    </dl>
+</div>
+<script type="text/javascript">
+
+  // DOM element where the Timeline will be attached
+  var container = document.getElementById('visualization');
+
+  // Create a DataSet (allows two way data-binding)
+  var items = new vis.DataSet([
+    {% for track in sound_traks %}
+    {
+        content: '{{ track.max_volume }}', 
+        start: '{{ track.starts_at|date:"c" }}', 
+        end: '{{ track.ends_at|date:"c" }}',
+        file: '{{ track.file_name }}'
+    },
+    {% endfor %}
+  ]);
+
+  var start = new Date();
+  start.setMinutes(start.getMinutes() - 10);
+  var end = new Date();
+  end.setMinutes(end.getMinutes() +10);
+  // Configuration for the Timeline
+  var options = {
+    selectable: true,
+    start: start,
+    end: end,
+  };
+
+  // Create a Timeline
+  var timeline = new vis.Timeline(container, items, options);
+  timeline.on('select', function (properties) {
+    var item = items.get(properties.items[0]);
+    if (item.file)
+    {
+        var start = Sugar.Date.create(item.start);
+        var end = Sugar.Date.create(item.end);
+        $('#startAt').html(Sugar.Date.format(start, '%Y-%m-%d %T'));
+        $('#endAt').html(Sugar.Date.format(end, '%Y-%m-%d %T'));
+    
+        var audio = new Audio('/static/server/' + item.file);
+        audio.play();
+    }
+    
+  });
+</script>
+</body>
+</html>
