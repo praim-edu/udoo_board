@@ -9,6 +9,12 @@ django.setup()
 from server import models
 from django.utils import timezone
 
+import argparse
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('broker')
+args = parser.parse_args()
+BROKER=args.broker
 
 
 class AudioMessage:
@@ -69,7 +75,8 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("10.2.2.200", 1883, 60)
+print("receiver attempting connection")
+client.connect(BROKER, 1883, 60)
 client.subscribe("/signal")
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
